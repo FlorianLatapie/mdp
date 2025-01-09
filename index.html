@@ -1,1 +1,38 @@
-Hello World!
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur de mot de passe</title>
+    <!--link rel="stylesheet" href="style.css">-->
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/70631622?v=4" type="image/png">
+</head>
+<body>
+    <header>
+        <img id="appIcon" src="https://avatars.githubusercontent.com/u/70631622?v=4" alt="FlorianLatapie's profile picture">
+        <h1>Générateur de mot de passe</h1>
+    </header>
+    <main>
+        <div class="button_container">
+            <button class="apple-style-button" onclick="generatePassword()">Générer un nouveau mot de passe</button>
+            <input type="text" id="passwordOutput" readonly>
+        </div>
+    </main>
+    <script>
+        function generatePassword() {
+            const chars = 'abcdefghiklmopqrstuvwxyz1234567890:;,()€&"!';
+            let password = '';
+            for (let i = 0; i < 20; i++) {
+                if (i % 4 === 0 && i !== 0) {
+                    password += '-';
+                }
+                const randomIndex = Math.floor(Math.random() * chars.length);
+                password += chars[randomIndex];
+            }
+            document.getElementById('passwordOutput').value = password;
+        }
+
+        generatePassword();
+    </script>
+</body>
+</html>
