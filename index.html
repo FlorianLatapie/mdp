@@ -55,6 +55,12 @@
                 }
             });
         });
+
+        document.addEventListener('copy', (event) => {
+            const passwordOutput = document.getElementById('passwordOutput').value;
+            event.clipboardData.setData('text/plain', passwordOutput);
+            event.preventDefault();
+        });
     </script>
 </body>
 </html>
