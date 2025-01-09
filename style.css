@@ -42,10 +42,16 @@ button {
     background-color: #dcdce0;
 }
 
-.button_container {
+.col_container {
     display: flex;
     flex-direction: column;
     row-gap: 16px;
+}
+
+.row_container {
+    display: flex;
+    flex-direction: row;
+    column-gap: 16px;
 }
 
 * {
