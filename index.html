@@ -66,6 +66,7 @@
                     enterPressCount++;
                     if (enterPressCount === 1) {
                         document.getElementById('passwordOutput').style.borderColor = '#fe9809';
+                        copyPassword();
                     } else if (enterPressCount === 2) {
                         generatePassword();
                         document.getElementById('passwordOutput').style.borderColor = '#2374f5';
