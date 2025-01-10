@@ -6,6 +6,7 @@
     <title>Générateur de mot de passe</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="https://avatars.githubusercontent.com/u/70631622?v=4" type="image/png">
+    
 </head>
 <body>
     <header>
@@ -14,10 +15,11 @@
     </header>
     <main>
         <div class ="col_container">
+            <p id="info"></p>
             <input type="text" id="passwordOutput" readonly>
             <div class="row_container">
-                <button class="apple-style-button" onclick="generatePassword()">Générer un nouveau mot de passe</button>
-                <button class="apple-style-button" onclick="navigator.clipboard.writeText(document.getElementById('passwordOutput').value)">Copier le mot de passe</button>
+                <button class="apple-style-button" onclick="generatePassword()">Générer</button>
+                <button class="apple-style-button" onclick="copyPassword()">Copier</button>
             </div>
         </div>
     </main>
@@ -38,12 +40,26 @@
             //navigator.clipboard.writeText(password);
         }
 
+        function copyPassword() {
+            navigator.clipboard.writeText(document.getElementById('passwordOutput').value).then(() => {
+                const info = document.getElementById('info');
+                info.textContent = 'Mot de passe copié !';
+                info.classList.add('show');
+                setTimeout(() => {
+                    info.classList.remove('show');
+                    setTimeout(() => {
+                        info.textContent = '';
+                    }, 1000);
+                }, 3000);
+            });
+        }
+
         let enterPressCount = 0;
 
         document.addEventListener('DOMContentLoaded', () => {
             generatePassword();
             document.addEventListener('keydown', (event) => {
-                if (event.key === 'Enter') {
+                if (event.key === 'Enter' || event.key === ' ') {
                     enterPressCount++;
                     if (enterPressCount === 1) {
                         document.getElementById('passwordOutput').style.borderColor = '#fe9809';
@@ -57,9 +73,7 @@
         });
 
         document.addEventListener('copy', (event) => {
-            const passwordOutput = document.getElementById('passwordOutput').value;
-            event.clipboardData.setData('text/plain', passwordOutput);
-            event.preventDefault();
+            copyPassword();
         });
     </script>
 </body>
