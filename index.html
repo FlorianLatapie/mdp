@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Générateur de mot de passe</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="https://avatars.githubusercontent.com/u/70631622?v=4" type="image/png">
+    <link rel="icon" href="./icon.png">
     
 </head>
 <body>
     <header>
-        <img id="appIcon" src="https://avatars.githubusercontent.com/u/70631622?v=4" alt="FlorianLatapie's profile picture">
+        <img id="appIcon" src="./icon.png" alt="App icon" onclick="window.location.href = 'https://florianlatapie.github.io/home/'">
         <h1>Générateur de mot de passe</h1>
     </header>
     <main>
@@ -49,7 +49,7 @@
                     info.classList.remove('show');
                     setTimeout(() => {
                         info.textContent = '';
-                    }, 1000);
+                    }, 200);
                 }, 3000);
             });
         }
