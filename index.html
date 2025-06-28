@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,37 +11,47 @@
     <meta name="theme-color" content="#2374f5">
     <meta name="description" content="Générateur de mot de passe">
     <link rel="apple-touch-icon" href="./icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 </head>
+
 <body>
     <header>
-        <img id="appIcon" src="./icon.png" alt="App icon" onclick="window.location.href = 'https://florianlatapie.github.io/home/'">
+        <img id="appIcon" src="./icon.png" alt="App icon"
+            onclick="window.location.href = 'https://florianlatapie.github.io/home/'">
         <h1>Générateur de mot de passe</h1>
     </header>
     <main>
-        <div class ="col_container">
+        <div class="col_container">
             <p id="info"></p>
             <input type="text" id="passwordOutput" readonly>
             <div class="row_container">
-                <button class="apple-style-button" onclick="generatePassword()">Générer</button>
-                <button class="apple-style-button" onclick="copyPassword()">Copier</button>
+                <button class="apple-style-button" onclick="generatePassword()" tabindex="-1">Générer</button>
+                <button class="apple-style-button" onclick="copyPassword()" tabindex="-1">Copier</button>
             </div>
         </div>
     </main>
     <script>
         function generatePassword() {
             const chars = 'abcdefghkmpqrstuvwxyzABCDEFGHKLMPQRSTUVWXYZ23456789:;,()&!';
+            
+            const groups = 5;
+            const groupSize = 4;
+            const passwordLength = groups * groupSize;
+            
             let password = '';
-            for (let i = 0; i < 5*4; i++) {
-                if (i % 4 === 0 && i !== 0) {
+
+            const randomValues = new Uint32Array(passwordLength);
+            self.crypto.getRandomValues(randomValues);
+
+            for (let i = 0; i < passwordLength; i++) {
+                if (i % groupSize === 0 && i !== 0) {
                     password += '-';
                 }
-                const randomIndex = Math.floor(Math.random() * chars.length);
+                const randomIndex = randomValues[i] % chars.length;
                 password += chars[randomIndex];
             }
-            const passwordOutput = document.getElementById('passwordOutput');
-            passwordOutput.value = password;
-
-            //navigator.clipboard.writeText(password);
+            document.getElementById('passwordOutput').value = password;
+            document.getElementById('passwordOutput').style.borderColor = '#2374f5';
         }
 
         function copyPassword() {
@@ -54,6 +65,7 @@
                         info.textContent = '';
                     }, 200);
                 }, 3000);
+                document.getElementById('passwordOutput').style.borderColor = '#fe9809';
             });
         }
 
@@ -65,11 +77,9 @@
                 if (event.key === 'Enter' || event.key === ' ') {
                     enterPressCount++;
                     if (enterPressCount === 1) {
-                        document.getElementById('passwordOutput').style.borderColor = '#fe9809';
                         copyPassword();
                     } else if (enterPressCount === 2) {
                         generatePassword();
-                        document.getElementById('passwordOutput').style.borderColor = '#2374f5';
                         enterPressCount = 0;
                     }
                 }
@@ -91,4 +101,5 @@
         }
     </script>
 </body>
+
 </html>
